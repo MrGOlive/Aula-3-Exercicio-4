@@ -14,29 +14,6 @@ public class VeiculoSUV extends Veiculo{
         }else {
             taxaProtecao = 0;
         }
-        return setValorFinal((getQtdDiasLocacao() * (getValorFinal() * 1.15)) + (getQtdDiasLocacao() * taxaProtecao));
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "--------------------------------------------------\n" +
-                        " Categoria:         %s\n" +
-                        " Modelo:            %s\n" +
-                        " Diária:            R$ %.2f\n" +
-                        " Período:           %.0f dia(s)\n" +
-                        " Seguro/Proteção:   %s\n" +
-                        " Taxa de Proteção:  R$ %.2f\n" +
-                        "--------------------------------------------------\n" +
-                        " TOTAL A PAGAR:     R$ %.2f\n" +
-                        "--------------------------------------------------",
-                this.getCategoriaVeiculo(),
-                this.getModeloVeiculo(),
-                this.getValorDiaria(),
-                this.getQtdDiasLocacao(),
-                (this.temProtecao ? "Sim" : "Não"),
-                (this.temProtecao ? this.taxaProtecao : 0.0),
-                this.CalcularValor()
-        );
+        return (getQtdDiasLocacao() * (getValorFinal() * 1.15)) + (getQtdDiasLocacao() * taxaProtecao);
     }
 }

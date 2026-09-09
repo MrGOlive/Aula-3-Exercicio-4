@@ -8,17 +8,6 @@ public abstract class Veiculo {
     private String categoriaVeiculo;
     private double valorFinal;
 
-    // MÉTODOS
-    // CALCULAR VALOR FINAL A SER PAGO
-    public double CalcularValor(){
-        return 0;
-    }
-
-    // MOSTRAR BONITINHO NO TO STRING
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
     // CONSTRUTORES
     public Veiculo(String modeloVeiculo, double valorDiaria, double qtdDiasLocacao, String categoriaVeiculo) {
@@ -28,6 +17,28 @@ public abstract class Veiculo {
         this.categoriaVeiculo = categoriaVeiculo;
         this.modeloVeiculo = modeloVeiculo;
     }
+        // MÉTODOS
+        // CALCULAR VALOR FINAL A SER PAGO
+        public abstract double CalcularValor();
+
+        // MOSTRAR BONITINHO NO TO STRING
+        @Override
+        public String toString() {
+            return String.format(
+                    "\n--------------------------------------------------\n" +
+                            " Categoria:         %s\n" +
+                            " Modelo:            %s\n" +
+                            " Diária:            R$ %.2f\n" +
+                            " Período:           %.0f dia(s)\n" +
+                            " Desconto/Acrésc:   Nenhum (Padrão)\n" +
+                            "--------------------------------------------------\n" +
+                            " TOTAL A PAGAR:     R$ %.2f\n" +
+                            "--------------------------------------------------", categoriaVeiculo, // ou this.categoriaVeiculo se for protected na mãe
+                    modeloVeiculo,    // ou this.modeloVeiculo
+                    valorDiaria,
+                    qtdDiasLocacao,
+                    CalcularValor());
+        }
 
     // GETTERS E SETTERS
     public String getModeloVeiculo() {

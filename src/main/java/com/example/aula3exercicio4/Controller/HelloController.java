@@ -5,10 +5,9 @@ import com.example.aula3exercicio4.Model.VeiculoHatch;
 import com.example.aula3exercicio4.Model.VeiculoSUV;
 import com.example.aula3exercicio4.Model.VeiculoUtilitario;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import javax.swing.text.View;
 
 public class HelloController {
     @FXML
@@ -22,6 +21,8 @@ public class HelloController {
     @FXML
     private ComboBox<String> idCategoriaVeiculo;
     @FXML
+    private Button idApresentarResumo;
+    @FXML
     private TextArea idResumo;
 
     // SETANDO O COMBOBOX
@@ -30,6 +31,7 @@ public class HelloController {
         idCategoriaVeiculo.getItems().addAll("Hatch", "SUV", "Utilitário");
     }
 
+    @FXML
     public void CalcularValor(){
         //  TRANSFORMANDO TUDO EM VARIÁVEL
         String nomeCliente = idNomeCliente.getText();
@@ -63,10 +65,8 @@ public class HelloController {
                 idResumo.setText("ERRO: CATEGORIA VEÍCULO NÃO CORRESPONDE");
                 break;
         }
-
+        idResumo.appendText(veiculo.toString());
     }
 
-    public void ApresentarResumo(){
-        idResumo.setText(toString());
-    }
+
 }
