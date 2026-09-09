@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="463.0" prefWidth="635.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.aula3exercicio4.Controller.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <TextField fx:id="idNomeCliente" promptText="Nome do cliente" />
+      <TextField fx:id="idModeloVeiculo" promptText="Modelo do veículo" />
+      <TextField fx:id="idValorDiaria" promptText="Valor da diária" />
+      <TextField fx:id="idQtdDiasLocacao" prefHeight="26.0" prefWidth="384.0" promptText="Quantidade de dias da locação" />
+      <ComboBox fx:id="idCategoriaVeiculo" prefHeight="26.0" prefWidth="158.0" promptText="Categoria do veículo" />
+      <Button fx:id="idApresentarResumo" mnemonicParsing="false" onAction="#ApresentarResumo" text="apresentar resumo" />
+      <TextArea fx:id="idResumo" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</VBox>
