@@ -14,7 +14,9 @@
       <TextField fx:id="idValorDiaria" promptText="Valor da diária" />
       <TextField fx:id="idQtdDiasLocacao" prefHeight="26.0" prefWidth="384.0" promptText="Quantidade de dias da locação" />
       <ComboBox fx:id="idCategoriaVeiculo" prefHeight="26.0" prefWidth="158.0" promptText="Categoria do veículo" />
-      <Button fx:id="idApresentarResumo" mnemonicParsing="false" onAction="#CalcularValor" text="Apresentar resumo" />
+       <TextField fx:id="idPesoTransportado" prefHeight="26.0" prefWidth="384.0" promptText="Quantidade de peso transportado em kg?" />
+       <ComboBox fx:id="idTemTaxa" prefHeight="25.0" prefWidth="323.0" promptText="Deseja adicionar uma taxa de proteção por R$25,00?" />
+       <Button fx:id="idApresentarResumo" mnemonicParsing="false" onAction="#CalcularValor" text="Apresentar resumo" />
       <TextArea fx:id="idResumo" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </VBox>

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import javax.swing.text.View;
+import java.util.Objects;
 
 public class HelloController {
     @FXML
@@ -21,6 +22,10 @@ public class HelloController {
     @FXML
     private ComboBox<String> idCategoriaVeiculo;
     @FXML
+    private ComboBox<String> idTemTaxa;
+    @FXML
+    private TextField idPesoTransportado;
+    @FXML
     private Button idApresentarResumo;
     @FXML
     private TextArea idResumo;
@@ -29,6 +34,32 @@ public class HelloController {
     @FXML
     public void initialize(){
         idCategoriaVeiculo.getItems().addAll("Hatch", "SUV", "Utilitário");
+        idTemTaxa.getItems().addAll("Sim", "Não");
+        idTemTaxa.setVisible(false);
+        idTemTaxa.setManaged(false);
+        idPesoTransportado.setVisible(false);
+        idPesoTransportado.setManaged(false);
+
+        idCategoriaVeiculo.setOnAction(event -> {
+            String selecionado = idCategoriaVeiculo.getValue();
+
+            if (selecionado == "SUV"){
+                idTemTaxa.setVisible(true);
+                idTemTaxa.setManaged(true);
+                idPesoTransportado.setVisible(false);
+                idPesoTransportado.setManaged(false);
+            }else if (selecionado == "Utilitário"){
+                idPesoTransportado.setVisible(true);
+                idPesoTransportado.setManaged(true);
+                idTemTaxa.setVisible(false);
+                idTemTaxa.setManaged(false);
+            }else {
+                idTemTaxa.setVisible(false);
+                idTemTaxa.setManaged(false);
+                idPesoTransportado.setVisible(false);
+                idPesoTransportado.setManaged(false);
+            }
+        });
     }
 
     @FXML
@@ -39,6 +70,11 @@ public class HelloController {
         String strValorDiaria = idValorDiaria.getText();
         String strDiasLocacao = idQtdDiasLocacao.getText();
         String categoriaVeiculo = idCategoriaVeiculo.getValue();
+        String temTaxa = idTemTaxa.getValue();
+        String strPesoTransportado = idPesoTransportado.getText();
+        double valorDiaria;
+        double qtdDiasLocacao;
+        double pesoTransportado;
         Veiculo veiculo = null;
 
         // VERIFICANDO SE NÃO TEM NENHUM CAMPO VAZIO
@@ -47,25 +83,61 @@ public class HelloController {
             return;
         }
 
-        // TRANSFORMA OS NUMÉRICOS EM DOUBLE
-        double valorDiaria = Double.parseDouble(strValorDiaria);
-        double qtdDiasLocacao = Double.parseDouble(strDiasLocacao);
+        // VERIFICA SE ENTRADA DO USUÁRIO É NUMÉRICA E TRANSFORMA OS NUMÉRICOS EM DOUBLE
+        try {
+            valorDiaria = Double.parseDouble(strValorDiaria);
+        } catch (NumberFormatException e) {
+            idResumo.setText("Valor da diária inválido.");
+            return;
+        }
+        try {
+            qtdDiasLocacao = Double.parseDouble(strDiasLocacao);
+        } catch (NumberFormatException e) {
+            idResumo.setText("Quantidade de dias de locação inválido.");
+            return;
+        }
 
         switch (categoriaVeiculo){
             case "Hatch":
                 veiculo = new VeiculoHatch(modeloVeiculo, valorDiaria, qtdDiasLocacao);
                 break;
             case "SUV":
-                veiculo = new VeiculoSUV(modeloVeiculo, valorDiaria, qtdDiasLocacao);
+                if (temTaxa == null){
+                    idResumo.setText("Todos os campos devem ser preenchidos.");
+                    return;
+                }
+                if (temTaxa.equals("Sim")){
+                    veiculo = new VeiculoSUV(modeloVeiculo, valorDiaria, qtdDiasLocacao, true);
+                }else if (temTaxa.equals("Não")){
+                    veiculo = new VeiculoSUV(modeloVeiculo, valorDiaria, qtdDiasLocacao, false);
+                }
                 break;
             case "Utilitário":
-                veiculo = new VeiculoUtilitario(modeloVeiculo, valorDiaria, qtdDiasLocacao);
+                try {
+                    pesoTransportado = Double.parseDouble(strPesoTransportado);
+                } catch (NumberFormatException e) {
+                    idResumo.setText("Quantidade de peso transportado precisa ser numérico");
+                    return;
+                }
+                veiculo = new VeiculoUtilitario(modeloVeiculo, valorDiaria, qtdDiasLocacao, pesoTransportado);
                 break;
             default:
+                idResumo.clear();
+                idNomeCliente.clear();
+                idModeloVeiculo.clear();
+                idQtdDiasLocacao.clear();
+                idValorDiaria.clear();
                 idResumo.setText("ERRO: CATEGORIA VEÍCULO NÃO CORRESPONDE");
                 break;
         }
-        idResumo.appendText(veiculo.toString());
+        idResumo.clear();
+        idNomeCliente.clear();
+        idModeloVeiculo.clear();
+        idQtdDiasLocacao.clear();
+        idValorDiaria.clear();
+        idPesoTransportado.clear();
+        idCategoriaVeiculo.getSelectionModel().clearSelection();
+        idResumo.setText(veiculo.toString());
     }
 
 
